@@ -1,7 +1,7 @@
 version: '3'
 services:
   npm:
-    container_name: "nginx_proxy_manager"
+    container_name: "nginx_proxy_manager2"
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
