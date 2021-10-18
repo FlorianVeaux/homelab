@@ -12,3 +12,6 @@ services:
     volumes:
       - /var/homelab/docker/nginx_proxy/data:/data
       - /var/homelab/docker/nginx_proxy/etc/letsencrypt:/etc/letsencrypt
+networks:
+  default:
+    name: nginx_proxy_manager

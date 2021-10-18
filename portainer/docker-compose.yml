@@ -1,10 +1,13 @@
 version: '3'
 services:
   app:
+    container_name: portainer
     image: 'portainer/portainer-ce:latest'
     restart: unless-stopped
-    ports:
-      - '9000:9000'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/homelab/docker/portainer/data:/data
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
