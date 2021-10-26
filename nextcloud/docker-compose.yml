@@ -19,7 +19,7 @@ services:
     image: nextcloud
     restart: unless-stopped
     links:
-      - db
+      - nextcloud_db
     volumes:
       - /ssd/nextcloud_data:/var/www/html
     environment:
