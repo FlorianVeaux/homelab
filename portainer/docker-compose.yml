@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /var/homelab/docker/portainer/data:/data
+      - /nvme/docker/portainer/data:/data
 networks:
   default:
     external:
