@@ -5,7 +5,7 @@ services:
     image: datadog/agent:latest
     environment:
      - DD_API_KEY=${DD_API_KEY}
-     - DD_SITE=datadoghq.com
+     - DD_SITE=datadoghq.eu
      - DD_LOGS_ENABLED=true
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
