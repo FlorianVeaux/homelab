@@ -26,4 +26,9 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db
+      - MYSQL_HOST=nextcloud_db
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
