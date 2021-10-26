@@ -1,7 +1,8 @@
 version: '3'
 services:
   datadog:
-    build: datadog
+    container_name: dd-agent
+    image: datadog/agent:latest
     environment:
      - DD_API_KEY=${DD_API_KEY}
      - DD_SITE=datadoghq.com
