@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /nvme/docker/heimdall/config/:/config
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
