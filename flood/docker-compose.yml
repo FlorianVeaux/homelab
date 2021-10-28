@@ -1,0 +1,37 @@
+version: "3"
+services:
+  rtorrent:
+    image: wonderfall/rtorrent-flood
+    container_name: rtorrent
+    restart: unless-stopped
+    tty: true
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 49184:49184
+      - 49184:49184/udp
+    environment:
+      - UID=1000
+      - GID=1000
+      - FLOOD_SECRET=${FLOOD_SECRET}
+    volumes:
+      - /nvme/docker/flood/db/:/flood-db
+      - /nvme/docker/flood/data/:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rtorrent.entrypoints=http
+      - traefik.http.routers.rtorrent.rule=Host(`box.domain.tld`)
+      - traefik.http.routers.rtorrent.middlewares=https-redirect@file
+      - traefik.http.routers.rtorrent-secure.entrypoints=https
+      - traefik.http.routers.rtorrent-secure.rule=Host(`box.domain.tld`)
+      - traefik.http.routers.rtorrent-secure.tls=true
+      - traefik.http.routers.rtorrent-secure.middlewares=secure-headers@file,hsts-headers@file
+      - traefik.http.routers.rtorrent-secure.tls.certresolver=http
+      - traefik.http.routers.rtorrent-secure.service=rtorrent
+      - traefik.http.services.rtorrent.loadbalancer.server.port=3000
+      - traefik.docker.network=nginx_proxy_manager
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
