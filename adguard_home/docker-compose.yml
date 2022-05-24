@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  adguard:
+    container_name: adguardhome
+    image: adguard/adguardhome
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      -  /nvme/docker/adguard_home/work:/opt/adguardhome/work
+      - /nvme/docker/adguard_home/conf:/opt/adguardhome/conf
+    ports:
+      - 53:53/tcp  # port DNS
+      - 53:53/udp  # port DNS
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
