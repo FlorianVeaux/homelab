@@ -16,7 +16,7 @@ services:
 
   nextcloud:
     container_name: nextcloud
-    image: nextcloud
+    image: nextcloud:23
     restart: unless-stopped
     links:
       - nextcloud_db
