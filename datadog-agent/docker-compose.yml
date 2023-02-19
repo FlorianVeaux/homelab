@@ -10,6 +10,7 @@ services:
      - DD_LOGS_ENABLED=true
      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
      - DD_DOGSTATSD_SOCKET=/host_data/dogstatsd.socket
+     - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
     volumes:
      - /nvme/docker/datadog-agent/:/host_data/
      - /var/run/docker.sock:/var/run/docker.sock
