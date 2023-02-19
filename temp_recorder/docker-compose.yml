@@ -1,0 +1,10 @@
+version: '3'
+services:
+  datadog:
+    restart: always
+    container_name: temp_recorder
+    image: hcr.florianveaux.fr/temp_recorder
+    network_mode: "host"
+    privileged: true
+    volumes:
+     -  /nvme/docker/datadog-agent/dogstatsd.socket:/app/dogstatsd.socket
