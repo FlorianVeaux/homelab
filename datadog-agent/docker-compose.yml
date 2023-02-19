@@ -9,7 +9,9 @@ services:
      - DD_SITE=datadoghq.eu
      - DD_LOGS_ENABLED=true
      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+     - DD_DOGSTATSD_SOCKET=/var/run/datadog/dogstatsd.socket
     volumes:
+     - /nvme/docker/datadog-agent/dogstatsd.socket:/var/run/datadog/dogstatsd.socket
      - /var/run/docker.sock:/var/run/docker.sock
      - /proc/:/host/proc/:ro
      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
