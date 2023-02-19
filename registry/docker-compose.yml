@@ -1,0 +1,13 @@
+version: "2.1"
+services:
+  heimdall:
+    image: registry.hub.docker.com/library/registry:2
+    container_name: registry
+    volumes:
+      - /nvme/docker/registry:/var/lib/registry
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
