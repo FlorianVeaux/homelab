@@ -1,4 +1,3 @@
-
 import argparse
 import asyncio
 import logging
@@ -9,7 +8,7 @@ from bleak.backends.scanner import AdvertisementData
 from datadog import initialize, statsd
 
 logger = logging.getLogger(__name__)
-initialize(statsd_host="datadog-agent", statsd_port=8125)
+initialize(statsd_socket_path="/app/dogstatsd.socket")
 
 ATC_SERVICE_DATA_KEY = "0000181a-0000-1000-8000-00805f9b34fb"
 
@@ -24,7 +23,7 @@ def simple_callback(device: BLEDevice, advertisement_data: AdvertisementData):
     battery_percent = int(service_data[9])
     packet_count = int(service_data[12])
     logger.info("%s[%s]: Temp=%.1f Humidity=%d%% Battery=%d%% #%d", mac_address, device.name, temperature, humidity_percent, battery_percent, packet_count)
-    metric_tags = ['city:paris', 'home:fmaison', 'device_name:%s' % device.name, 'mac_address:%s' % mac_address)
+    metric_tags = ['city:paris', 'home:fmaison', 'device_name:%s' % device.name, 'mac_address:%s' % mac_address]
     statsd.gauge('thermometer.temperature', temperature, tags=metric_tags)
     statsd.gauge('thermometer.humidity', humidity_percent, tags=metric_tags)
     statsd.gauge('thermometer.battery', battery_percent, tags=metric_tags)
