@@ -1,19 +1,20 @@
 version: '3'
 services:
-  datadog:
+  datadog-agent:
     restart: always
-    container_name: dd-agent
+    container_name: datadog-agent
     image: datadog/agent:latest
     environment:
      - DD_API_KEY=${DD_API_KEY}
      - DD_SITE=datadoghq.eu
      - DD_LOGS_ENABLED=true
      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-     - DD_DOGSTATSD_SOCKET=/host_data/dogstatsd.socket
      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
     volumes:
-     - /nvme/docker/datadog-agent/:/host_data/
      - /var/run/docker.sock:/var/run/docker.sock
      - /proc/:/host/proc/:ro
      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+networks:
+  default:
+    name: datadog-agent
