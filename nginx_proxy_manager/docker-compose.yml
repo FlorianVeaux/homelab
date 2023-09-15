@@ -14,7 +14,7 @@ services:
     labels:
       com.datadoghq.ad.check_names: '["nginx"]'
       com.datadoghq.ad.init_configs: '[{}]'
-      com.datadoghq.ad.instances: '[{"nginx_status_url": "http://%%host%%:82/nginx_status/"}]'
+      com.datadoghq.ad.instances: '[{"nginx_status_url": "http://%%host_datadog-agent%%:82/nginx_status/"}]'
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
     volumes:
