@@ -8,6 +8,13 @@ services:
       - '80:80'
       - '81:81'
       - '443:443'
+    networks:
+      - default
+      - datadog-agent
+    labels:
+      com.datadoghq.ad.check_names: '["nginx"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: '[{"nginx_status_url": "http://%%host%%:82/nginx_status/"}]'
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
     volumes:
@@ -16,3 +23,6 @@ services:
 networks:
   default:
     name: nginx_proxy_manager
+  datadog-agent:
+    external:
+      name: datadog-agent
