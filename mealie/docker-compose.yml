@@ -32,4 +32,7 @@ services:
       - WEB_CONCURRENCY=1
       - BASE_URL=https://mealie.florianveaux.fr
     restart: always
-
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
