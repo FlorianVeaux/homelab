@@ -1,0 +1,7 @@
+version: '3'
+services:
+  fnf_wedding:
+    restart: always
+    container_name: fnf_wedding
+    image: hcr.florianveaux.fr/fnf-savethedate
+    privileged: true
