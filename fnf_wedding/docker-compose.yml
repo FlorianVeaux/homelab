@@ -4,4 +4,5 @@ services:
     restart: always
     container_name: fnf_wedding
     image: hcr.florianveaux.fr/fnf-savethedate
-    privileged: true
+    volumes:
+      - /nvme/docker/fnf_website/productiondb.sqlite:/app/productiondb.sqlite
