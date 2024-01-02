@@ -6,3 +6,8 @@ services:
     image: hcr.florianveaux.fr/fnf-savethedate
     volumes:
       - /nvme/docker/fnf_website/productiondb.sqlite:/app/productiondb.sqlite
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
