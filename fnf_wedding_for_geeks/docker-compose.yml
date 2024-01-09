@@ -1,0 +1,13 @@
+version: '3'
+services:
+  fnf_wedding_for_geeks:
+    restart: always
+    container_name: fnf_wedding_for_geeks
+    image: hcr.florianveaux.fr/fnf-savethedate
+    volumes:
+      - /nvme/docker/fnf_website/fakedb_for_geeks.sqlite:/app/productiondb.sqlite
+
+networks:
+  default:
+    external:
+      name: nginx_proxy_manager
