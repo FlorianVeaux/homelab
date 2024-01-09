@@ -5,7 +5,7 @@ services:
     container_name: fnf_wedding_for_geeks
     image: hcr.florianveaux.fr/fnf-savethedate
     volumes:
-      - /nvme/docker/fnf_website/fakedb_for_geeks.sqlite:/app/productiondb.sqlite
+      - /nvme/docker/fnf_website_for_geeks/fakedb_for_geeks.sqlite:/app/productiondb.sqlite
 
 networks:
   default:
