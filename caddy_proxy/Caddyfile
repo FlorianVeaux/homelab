@@ -1,0 +1,24 @@
+# Caddyfile
+
+adguard.{$HOMELAB_DOMAIN} {
+    reverse_proxy adguard-home.{$TAILNET_DNS}:8080
+    # Use Caddy's default internal TLS (on-demand/self-signed)
+    tls internal
+}
+
+mealie.{$HOMELAB_DOMAIN} {
+    reverse_proxy mealie.{$TAILNET_DNS}:3001
+    # Use Caddy's default internal TLS (on-demand/self-signed)
+    tls internal
+}
+
+nas.{$HOMELAB_DOMAIN} {
+    reverse_proxy nas-fmaison.{$TAILNET_DNS}:9999
+    tls internal
+}
+
+portainer.{$HOMELAB_DOMAIN} {
+    reverse_proxy portainer.{$TAILNET_DNS}:9000
+    tls internal
+}
+

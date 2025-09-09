@@ -1,19 +1,18 @@
-version: '3'
 services:
   npm:
     container_name: "nginx_proxy_manager"
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: "jc21/nginx-proxy-manager:latest"
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - "192.168.1.2:80:80"
+      - "192.168.1.2:443:443"
+      - "81:81"
     networks:
-      - default
+      - nginx_proxy_manager
       - datadog-agent
     labels:
       com.datadoghq.ad.check_names: '["nginx"]'
-      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.init_configs: "[{}]"
       com.datadoghq.ad.instances: '[{"nginx_status_url": "http://%%host_datadog-agent%%:82/nginx_status/"}]'
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
@@ -21,8 +20,8 @@ services:
       - /nvme/docker/nginx_proxy/data:/data
       - /nvme/docker/nginx_proxy/etc/letsencrypt:/etc/letsencrypt
 networks:
-  default:
+  nginx_proxy_manager:
     name: nginx_proxy_manager
   datadog-agent:
-    external:
-      name: datadog-agent
+    name: datadog-agent
+    external: true

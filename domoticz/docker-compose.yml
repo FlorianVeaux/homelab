@@ -1,5 +1,3 @@
-version: '3.3'
-
 services:
   domoticz:
     image: domoticz/domoticz:stable

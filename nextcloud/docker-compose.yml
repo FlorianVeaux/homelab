@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   nextcloud_db:
     container_name: nextcloud_db
