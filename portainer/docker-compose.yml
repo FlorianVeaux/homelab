@@ -6,14 +6,20 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /nvme/docker/portainer/data:/data
+    network_mode: service:ts-portainer
+    depends_on:
+      - ts-portainer
   ts-portainer:
     image: tailscale/tailscale:latest
-    container_name: ts-mealie
+    container_name: ts-portainer
     hostname: portainer
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_EXTRA_ARGS=--advertise-tags=tag:container
       - TS_STATE_DIR=/var/lib/tailscale
+      - TS_ENABLE_HEALTH_CHECK=true # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234 # The <addr>:<port> for the healthz endpoint
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_ACCEPT_DNS=true
     volumes:
       - /nvme/docker/portainer/ts/state:/var/lib/tailscale
       - /nvme/docker/portainer/ts/config:/config
