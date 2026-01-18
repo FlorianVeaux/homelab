@@ -17,8 +17,12 @@ nas.{$HOMELAB_DOMAIN} {
     tls internal
 }
 
+nextcloud.{$HOMELAB_DOMAIN} {
+    reverse_proxy nextcloud.{$TAILNET_DNS}:80
+    tls internal
+}
+
 portainer.{$HOMELAB_DOMAIN} {
     reverse_proxy portainer.{$TAILNET_DNS}:9000
     tls internal
 }
-
