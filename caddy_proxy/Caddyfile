@@ -6,6 +6,11 @@ adguard.{$HOMELAB_DOMAIN} {
     tls internal
 }
 
+immich.{$HOMELAB_DOMAIN} {
+    reverse_proxy 192.168.1.3:2283
+    tls internal
+}
+
 mealie.{$HOMELAB_DOMAIN} {
     reverse_proxy mealie.{$TAILNET_DNS}:3001
     # Use Caddy's default internal TLS (on-demand/self-signed)
