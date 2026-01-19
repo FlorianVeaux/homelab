@@ -1,26 +1,7 @@
 services:
-  # Tailscale sidecar for internal admin access
-  ts-authentik:
-    image: tailscale/tailscale:latest
-    hostname: authentik
-    environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_EXTRA_ARGS=--advertise-tags=tag:container
-      - TS_STATE_DIR=/var/lib/tailscale
-    volumes:
-      - /nvme/docker/authentik/ts/state:/var/lib/tailscale
-      - /nvme/docker/authentik/ts/config:/config
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - net_admin
-      - sys_module
-    restart: unless-stopped
-
   authentik-db:
     image: postgres:16-alpine
     restart: unless-stopped
-    network_mode: service:ts-authentik
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 20s
@@ -37,7 +18,6 @@ services:
   authentik-redis:
     image: redis:alpine
     restart: unless-stopped
-    network_mode: service:ts-authentik
     command: --save 60 1 --loglevel warning
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
@@ -51,12 +31,11 @@ services:
   authentik-server:
     image: ghcr.io/goauthentik/server:2024.2.1
     restart: unless-stopped
-    network_mode: service:ts-authentik
     command: server
     environment:
       # Database/Redis connection via localhost (shared network namespace)
-      - AUTHENTIK_REDIS__HOST=localhost
-      - AUTHENTIK_POSTGRESQL__HOST=localhost
+      - AUTHENTIK_REDIS__HOST=authentik-redis
+      - AUTHENTIK_POSTGRESQL__HOST=authentik-db
       - AUTHENTIK_POSTGRESQL__USER=authentik
       - AUTHENTIK_POSTGRESQL__NAME=authentik
       - AUTHENTIK_POSTGRESQL__PASSWORD=${AUTHENTIK_PG_PASSWORD}
@@ -74,12 +53,11 @@ services:
   authentik-worker:
     image: ghcr.io/goauthentik/server:2024.2.1
     restart: unless-stopped
-    network_mode: service:ts-authentik
     command: worker
     environment:
       # Database/Redis connection via localhost (shared network namespace)
-      - AUTHENTIK_REDIS__HOST=localhost
-      - AUTHENTIK_POSTGRESQL__HOST=localhost
+      - AUTHENTIK_REDIS__HOST=authentik-redis
+      - AUTHENTIK_POSTGRESQL__HOST=authentik-db
       - AUTHENTIK_POSTGRESQL__USER=authentik
       - AUTHENTIK_POSTGRESQL__NAME=authentik
       - AUTHENTIK_POSTGRESQL__PASSWORD=${AUTHENTIK_PG_PASSWORD}
