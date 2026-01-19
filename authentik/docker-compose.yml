@@ -46,6 +46,7 @@ services:
       - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=false
       - AUTHENTIK_DISABLE_UPDATE_CHECK=true
+      - AUTHENTIK_LISTEN__HTTP=${AUTHENTIK_PUBLIC_URL}
       - TZ=Europe/Paris
     networks:
       - caddy_public
