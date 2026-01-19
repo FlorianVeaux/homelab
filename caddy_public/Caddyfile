@@ -1,0 +1,7 @@
+# Caddyfile for the public reverse proxy
+
+auth.florianveaux.fr {
+    reverse_proxy adguard-home.{$TAILNET_DNS}:8080
+    # Use Caddy's default internal TLS (on-demand/self-signed)
+    tls internal
+}

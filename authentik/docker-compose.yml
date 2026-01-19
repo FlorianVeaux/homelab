@@ -8,6 +8,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 5s
+    networks:
+      - caddy_public
     volumes:
       - /nvme/docker/authentik/database:/var/lib/postgresql/data
     environment:
@@ -25,6 +27,8 @@ services:
       interval: 30s
       retries: 5
       timeout: 3s
+    networks:
+      - caddy_public
     volumes:
       - /nvme/docker/authentik/redis:/data
 
@@ -43,6 +47,8 @@ services:
       - AUTHENTIK_ERROR_REPORTING__ENABLED=false
       - AUTHENTIK_DISABLE_UPDATE_CHECK=true
       - TZ=Europe/Paris
+    networks:
+      - caddy_public
     volumes:
       - /nvme/docker/authentik/media:/media
       - /nvme/docker/authentik/custom-templates:/templates
@@ -65,6 +71,8 @@ services:
       - AUTHENTIK_ERROR_REPORTING__ENABLED=false
       - AUTHENTIK_DISABLE_UPDATE_CHECK=true
       - TZ=Europe/Paris
+    networks:
+      - caddy_public
     volumes:
       - /nvme/docker/authentik/media:/media
       - /nvme/docker/authentik/custom-templates:/templates
@@ -72,3 +80,7 @@ services:
     depends_on:
       - authentik-db
       - authentik-redis
+
+networks:
+  caddy_public:
+    external: true

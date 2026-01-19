@@ -1,0 +1,22 @@
+services:
+  caddy-public:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"    # HTTP
+      - "443:443"  # HTTPS
+    configs:
+      - source: Caddyfile
+        target: /etc/caddy/Caddyfile
+    volumes:
+      - /nvme/docker/caddy_lan/data:/data
+      - /nvme/docker/caddy_lan/config:/config
+    networks:
+      - caddy_public
+
+configs:
+  Caddyfile:
+    content: |
+      auth.florianveaux.fr {
+        reverse_proxy authentik-server:9000
+      }
