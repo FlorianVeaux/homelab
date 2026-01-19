@@ -14,6 +14,10 @@ services:
     networks:
       - caddy_public
 
+networks:
+  caddy_public:
+    driver: bridge
+
 configs:
   Caddyfile:
     content: |
