@@ -16,6 +16,7 @@ services:
 
 networks:
   caddy_public:
+    name: caddy_public
     driver: bridge
 
 configs:
