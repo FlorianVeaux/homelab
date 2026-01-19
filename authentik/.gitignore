@@ -1,0 +1,6 @@
+# Environment variables with secrets
+.env
+
+# Backup files
+*.bak
+*.backup
