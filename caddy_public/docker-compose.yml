@@ -11,7 +11,7 @@ services:
     volumes:
       - /nvme/docker/caddy_lan/data:/data
       - /nvme/docker/caddy_lan/config:/config
-      - /nvme/docker/caddy_public/certs:/etc/caddy/certs:ro
+      - /nvme/docker/caddy_lan/certs:/etc/caddy/certs:ro
     networks:
       - caddy_public
 
