@@ -1,0 +1,13 @@
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:${NEXTCLOUD_VERSION}
+    container_name: nextcloud
+    environment:
+      - PUID=1001 #nextcloud user id
+      - PGID=1001
+      - TZ=Europe/Paris
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ${DATA_DIR}:/data
+    restart: unless-stopped
+    
