@@ -6,8 +6,8 @@ services:
       - PUID=1001 #nextcloud user id
       - PGID=1001
       - TZ=Europe/Paris
-    volumes:
       - ${CONFIG_DIR}:/config
       - ${DATA_DIR}:/data
+    ports:
+      - ${PORT}:443
     restart: unless-stopped
-    
