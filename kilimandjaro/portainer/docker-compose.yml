@@ -1,0 +1,34 @@
+services:
+  app:
+    container_name: portainer
+    image: "portainer/portainer-ce:latest"
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /nvme/docker/portainer/data:/data
+    networks:
+      - caddy_public
+
+networks:
+  caddy_public:
+    external: true
+  # ts-portainer:
+  #   image: tailscale/tailscale:latest
+  #   container_name: ts-portainer
+  #   hostname: portainer
+  #   environment:
+  #     - TS_AUTHKEY=${TS_AUTHKEY}
+  #     - TS_STATE_DIR=/var/lib/tailscale
+  #     - TS_ENABLE_HEALTH_CHECK=true # Enable healthcheck endpoint: "/healthz"
+  #     - TS_LOCAL_ADDR_PORT=127.0.0.1:41234 # The <addr>:<port> for the healthz endpoint
+  #     - TS_EXTRA_ARGS=--advertise-tags=tag:container
+  #     - TS_ACCEPT_DNS=true
+  #   volumes:
+  #     - /nvme/docker/portainer/ts/state:/var/lib/tailscale
+  #     - /nvme/docker/portainer/ts/config:/config
+  #   devices:
+  #     - /dev/net/tun:/dev/net/tun
+  #   cap_add:
+  #     - net_admin
+  #     - sys_module
+  #   restart: unless-stopped

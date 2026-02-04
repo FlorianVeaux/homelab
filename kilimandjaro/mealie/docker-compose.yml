@@ -4,16 +4,16 @@ services:
     container_name: mealie-frontend
     environment:
       # Set Frontend ENV Variables Here
-      - API_URL=http://localhost:9000 #
+      - API_URL=http://mealie-api:9000 #
     restart:
       always
       #ports:
       #- "9925:3000" #
     volumes:
       - /nvme/docker/mealie/data/:/app/data/ #
-    network_mode: service:ts-mealie
+    networks:
+      - caddy_public
     depends_on:
-      - ts-mealie
       - mealie-api
   mealie-api:
     image: hkotel/mealie:api-v1.0.0beta-5
@@ -35,24 +35,27 @@ services:
       - WEB_CONCURRENCY=1
       #- BASE_URL=https://mealie.florianveaux.fr
     restart: always
-    network_mode: service:ts-mealie
-    depends_on:
-      - ts-mealie
-  ts-mealie:
-    image: tailscale/tailscale:latest
-    container_name: ts-mealie
-    hostname: mealie
-    environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_EXTRA_ARGS=--advertise-tags=tag:container
-        #- TS_SERVE_CONFIG=/config/mealie.json
-      - TS_STATE_DIR=/var/lib/tailscale
-    volumes:
-      - /nvme/docker/mealie/ts/state:/var/lib/tailscale
-      - /nvme/docker/mealie/ts/config:/config
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - net_admin
-      - sys_module
-    restart: unless-stopped
+    networks:
+      - caddy_public
+  # ts-mealie:
+  #   image: tailscale/tailscale:latest
+  #   container_name: ts-mealie
+  #   hostname: mealie
+  #   environment:
+  #     - TS_AUTHKEY=${TS_AUTHKEY}
+  #     - TS_EXTRA_ARGS=--advertise-tags=tag:container
+  #       #- TS_SERVE_CONFIG=/config/mealie.json
+  #     - TS_STATE_DIR=/var/lib/tailscale
+  #   volumes:
+  #     - /nvme/docker/mealie/ts/state:/var/lib/tailscale
+  #     - /nvme/docker/mealie/ts/config:/config
+  #   devices:
+  #     - /dev/net/tun:/dev/net/tun
+  #   cap_add:
+  #     - net_admin
+  #     - sys_module
+  #   restart: unless-stopped
+
+networks:
+  caddy_public:
+    external: true

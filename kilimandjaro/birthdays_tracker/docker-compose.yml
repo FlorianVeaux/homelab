@@ -1,0 +1,19 @@
+services:
+  birthdays_tracker:
+    image: ghcr.io/florianveaux/birthdays_app:latest
+    container_name: birthdays_tracker
+    environment:
+      DB_TYPE: sqlite
+      DB_PATH: /data/birthdays.db
+      PORT: 8080
+      LOG_LEVEL: info
+      TZ: Europe/Paris
+    volumes:
+      - /nvme/docker/birthdays_app/data/birthdays:/data/
+    networks:
+      - caddy_public
+    restart: unless-stopped
+  
+networks:
+  caddy_public:
+    external: true

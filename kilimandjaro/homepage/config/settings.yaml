@@ -1,0 +1,50 @@
+---
+# Homepage Settings Configuration
+# Documentation: https://gethomepage.dev/configs/settings/
+
+title: "Homelab - Florian Veaux"
+description: "Personal Homelab Dashboard"
+
+# Theme and appearance
+theme: dark
+color: slate
+headerStyle: boxed
+cardBlur: md
+
+# Layout configuration
+layout:
+  Media & Photos:
+    style: row
+    columns: 3
+    icon: mdi-camera
+  Productivity & Cloud:
+    style: row
+    columns: 3
+    icon: mdi-cloud
+  Downloads:
+    style: row
+    columns: 3
+    icon: mdi-download
+  System Management:
+    style: row
+    columns: 3
+    icon: mdi-cog
+  Infrastructure:
+    style: row
+    columns: 3
+    icon: mdi-server
+
+# Additional settings
+target: _blank  # Open links in new tab
+iconStyle: theme  # Flat icon style
+showStats: true  # Show Docker stats
+statusStyle: dot  # Status indicator style
+useEqualHeights: true  # Equal height cards
+hideVersion: false
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: false
+  hideVisitURL: false
+
+# Language
+language: en

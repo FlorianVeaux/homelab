@@ -1,0 +1,107 @@
+---
+# Homepage Services Configuration
+# Documentation: https://gethomepage.dev/configs/services/
+
+# Media & Photos
+- Media & Photos:
+    - Immich:
+        icon: immich.png
+        href: https://immich.florianveaux.fr
+        description: Photo Library & Management
+        siteMonitor: https://immich.florianveaux.fr
+        widget:
+          type: immich
+          url: https://immich.florianveaux.fr
+          key: {{HOMEPAGE_VAR_IMMICH_API_KEY}}
+          # Displays: photos, videos, storage
+
+# Productivity & Cloud
+- Productivity & Cloud:
+    - Nextcloud:
+        icon: nextcloud.png
+        href: https://nextcloud.florianveaux.fr
+        description: Cloud Storage & File Sync
+        siteMonitor: https://nextcloud.florianveaux.fr
+        widget:
+          type: nextcloud
+          url: https://nextcloud.florianveaux.fr
+          username: {{HOMEPAGE_VAR_NEXTCLOUD_USERNAME}}
+          password: {{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}
+          # Displays: storage usage, users, files
+
+    - Mealie:
+        icon: mealie.png
+        href: https://mealie.fmaison
+        description: Recipe Manager & Meal Planner
+        siteMonitor: https://mealie.fmaison
+
+# Downloads
+- Downloads:
+    - Flood:
+        icon: flood.png
+        href: https://flood.fmaison
+        description: Torrent Client (RTorrent)
+        siteMonitor: https://flood.fmaison
+        # Note: Flood widget may require custom API configuration
+
+# System Management
+- System Management:
+    - Portainer:
+        icon: portainer.png
+        href: https://portainer.fmaison
+        description: Docker Container Management
+        siteMonitor: https://portainer.fmaison
+        widget:
+          type: portainer
+          url: https://portainer.fmaison
+          env: 1  # Environment ID (usually 1 for local)
+          key: {{HOMEPAGE_VAR_PORTAINER_API_KEY}}
+          # Displays: containers running, CPU, memory
+
+    - AdGuard Home:
+        icon: adguardhome.png
+        href: https://adguard.fmaison
+        description: DNS Server & Ad Blocker
+        siteMonitor: https://adguard.fmaison
+        widget:
+          type: adguard
+          url: https://adguard.fmaison
+          username: {{HOMEPAGE_VAR_ADGUARD_USERNAME}}
+          password: {{HOMEPAGE_VAR_ADGUARD_PASSWORD}}
+          # Displays: queries, blocked, filtering status
+
+    - Backrest:
+        icon: backrest.png
+        href: https://backrest.fmaison
+        description: Backup Management (Fuji NAS)
+        siteMonitor: https://backrest.fmaison
+        # Note: May require custom API widget if integration available
+
+# Infrastructure
+- Infrastructure:
+    - Authentik:
+        icon: authentik.png
+        href: https://auth.florianveaux.fr
+        description: Identity Provider & SSO
+        siteMonitor: https://auth.florianveaux.fr
+        widget:
+          type: authentik
+          url: https://auth.florianveaux.fr
+          key: {{HOMEPAGE_VAR_AUTHENTIK_API_KEY}}
+          # Displays: users, groups, applications
+
+    - Docker Registry:
+        icon: docker.png
+        href: https://registry.fmaison
+        description: Private Container Registry
+        siteMonitor: https://registry.fmaison
+
+    - Heimdall:
+        icon: heimdall.png
+        href: http://localhost:8080
+        description: Alternative Dashboard
+        # Note: Add actual URL once configured
+
+# Additional services to consider adding later:
+# - Temperature Recorder (custom monitoring)
+# - Datadog (monitoring dashboard)

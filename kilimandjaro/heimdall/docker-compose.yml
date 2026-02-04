@@ -9,8 +9,9 @@ services:
     volumes:
       - /nvme/docker/heimdall/config/:/config
     restart: unless-stopped
+    networks:
+      - caddy_public
 
 networks:
-  default:
-    external:
-      name: nginx_proxy_manager
+  caddy_public:
+    external: true

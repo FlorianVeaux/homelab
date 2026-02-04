@@ -1,0 +1,9 @@
+---
+# Docker Configuration for Homepage
+# Documentation: https://gethomepage.dev/configs/docker/
+
+# Default Docker socket configuration
+# Homepage will connect to the local Docker socket to display container stats
+
+my-docker:
+  socket: /var/run/docker.sock

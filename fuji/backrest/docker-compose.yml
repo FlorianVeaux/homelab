@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  backrest:
+    image: ghcr.io/garethgeorge/backrest:latest
+    container_name: backrest
+    hostname: backrest
+    volumes:
+      - /volume2/docker/backrest/data:/data
+      - /volume2/docker/backrest/config:/config
+      - /volume2/docker/backrest/cache:/cache
+      - /volume2/docker/backrest/tmp:/tmp
+      - /volume2/docker/backrest/rclone:/root/.config/rclone # Mount for rclone config (needed when using rclone remotes)
+      - /volume1/Shared:/userdata/Shared  # Mount local paths to backup
+      - /volume1/@home:/userdata/@home  # Mount local paths to backup
+      - /volume1/immich/immich_files/library:/userdata/immich/library 
+      - /volume1/immich/immich_files/upload:/userdata/immich/upload 
+      - /volume1/immich/immich_files/profile:/userdata/immich/profile
+    ports:
+      - "9898:9898"
+    environment:
+      - BACKREST_DATA=/data
+      - BACKREST_CONFIG=/config/config.json
+      - XDG_CACHE_HOME=/cache
+      - TMPDIR=/tmp
+      - TZ=Europe/Paris
+    restart: unless-stopped

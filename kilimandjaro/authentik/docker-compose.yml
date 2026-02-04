@@ -17,28 +17,12 @@ services:
       - POSTGRES_USER=authentik
       - POSTGRES_DB=authentik
 
-  authentik-redis:
-    image: redis:alpine
-    restart: unless-stopped
-    command: --save 60 1 --loglevel warning
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
-      start_period: 20s
-      interval: 30s
-      retries: 5
-      timeout: 3s
-    networks:
-      - caddy_public
-    volumes:
-      - /nvme/docker/authentik/redis:/data
-
   authentik-server:
     image: ghcr.io/goauthentik/server:${AUTHENTIK_VERSION:-2025.12.1}
     restart: unless-stopped
     command: server
     environment:
-      # Database/Redis connection via localhost (shared network namespace)
-      - AUTHENTIK_REDIS__HOST=authentik-redis
+      # Database connection via localhost (shared network namespace)
       - AUTHENTIK_POSTGRESQL__HOST=authentik-db
       - AUTHENTIK_POSTGRESQL__USER=authentik
       - AUTHENTIK_POSTGRESQL__NAME=authentik
@@ -54,15 +38,13 @@ services:
       - /nvme/docker/authentik/custom-templates:/templates
     depends_on:
       - authentik-db
-      - authentik-redis
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:${AUTHENTIK_VERSION:-2025.12.1}
     restart: unless-stopped
     command: worker
     environment:
-      # Database/Redis connection via localhost (shared network namespace)
-      - AUTHENTIK_REDIS__HOST=authentik-redis
+      # Database connection via localhost (shared network namespace)
       - AUTHENTIK_POSTGRESQL__HOST=authentik-db
       - AUTHENTIK_POSTGRESQL__USER=authentik
       - AUTHENTIK_POSTGRESQL__NAME=authentik
@@ -79,7 +61,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - authentik-db
-      - authentik-redis
 
 networks:
   caddy_public:

@@ -1,0 +1,95 @@
+services:
+  caddy-public:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"    # HTTP
+      - "443:443"  # HTTPS
+    configs:
+      - source: Caddyfile
+        target: /etc/caddy/Caddyfile
+    volumes:
+      - /nvme/docker/caddy_public/data:/data
+      - /nvme/docker/caddy_public/config:/config
+      - /nvme/docker/caddy_public/certs:/etc/caddy/certs:ro
+    networks:
+      - caddy_public
+
+networks:
+  caddy_public:
+    name: caddy_public
+    driver: bridge
+
+configs:
+  Caddyfile:
+    content: |
+      florianveaux.fr {
+        reverse_proxy homepage:3000
+      }
+
+      auth.florianveaux.fr {
+        reverse_proxy authentik-server:9000
+      }
+
+      immich.florianveaux.fr {
+        reverse_proxy /outpost.goauthentik.io/* http://authentik-server:9000
+
+        forward_auth authentik-server:9000 {
+          uri /outpost.goauthentik.io/auth/caddy
+          copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+        }
+        reverse_proxy 192.168.1.3:${IMMICH_PORT}
+      }
+
+      nextcloud.florianveaux.fr {
+        reverse_proxy /outpost.goauthentik.io/* http://authentik-server:9000
+
+        forward_auth authentik-server:9000 {
+          uri /outpost.goauthentik.io/auth/caddy
+          copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+        }
+        reverse_proxy nextcloud:80
+      }
+
+      (internal_only) {
+        tls internal
+        @internal {
+          remote_ip 192.168.0.0/16 100.64.0.0/10
+        }
+
+        handle @internal {
+          reverse_proxy {args.0}
+        }
+
+        respond 403
+      }
+
+
+      adguard.fmaison {
+        import internal_only adguardhome:8080
+      }
+
+      backrest.fmaison {
+        import internal_only 192.168.1.3:9898
+      }
+
+      birthdays.fmaison {
+        import internal_only birthdays_tracker:8080
+      }
+
+      flood.fmaison {
+        import internal_only rtorrent:3000
+      }
+
+      mealie.fmaison {
+        import internal_only mealie-frontend:3001
+      }
+
+      portainer.fmaison {
+        import internal_only portainer:9000
+      }
+
+      registry.fmaison {
+        import internal_only registry:5000
+      }
+      

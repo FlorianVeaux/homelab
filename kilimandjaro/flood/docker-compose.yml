@@ -10,6 +10,8 @@ services:
     ports:
       - 49184:49184
       - 49184:49184/udp
+    networks:
+      - caddy_public
     environment:
       - UID=1000
       - GID=1000
@@ -29,9 +31,8 @@ services:
       - traefik.http.routers.rtorrent-secure.tls.certresolver=http
       - traefik.http.routers.rtorrent-secure.service=rtorrent
       - traefik.http.services.rtorrent.loadbalancer.server.port=3000
-      - traefik.docker.network=nginx_proxy_manager
+      - traefik.docker.network=caddy_public
 
 networks:
-  default:
-    external:
-      name: nginx_proxy_manager
+  caddy_public:
+    external: true

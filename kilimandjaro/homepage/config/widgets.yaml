@@ -1,0 +1,45 @@
+---
+# Homepage Information Widgets Configuration
+# Documentation: https://gethomepage.dev/configs/info-widgets/
+
+# Search bar - Quick search across services
+- search:
+    provider: google
+    target: _blank
+
+# Greeting message
+- greeting:
+    text_size: xl
+    text: "Welcome to Your Homelab"
+
+# System resources monitoring
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    cputemp: true
+    uptime: true
+    refresh: 5000  # Refresh every 5 seconds
+    label: "Kilimandjaro Server"
+
+# Date and time
+- datetime:
+    text_size: l
+    format:
+      dateStyle: long
+      timeStyle: short
+      hour12: false
+
+# Optional: Weather widget (uncomment and configure if desired)
+# - openmeteo:
+#     label: Home
+#     latitude: 48.8566  # Replace with your latitude (example: Paris)
+#     longitude: 2.3522  # Replace with your longitude
+#     timezone: Europe/Paris
+#     units: metric
+#     cache: 5  # Cache for 5 minutes
+
+# Optional: Additional Docker stats (if you want global container overview)
+# - docker:
+#     label: Docker Stats
+#     server: my-docker
