@@ -85,6 +85,10 @@ configs:
         import internal_only mealie-frontend:3001
       }
 
+      ntfy.fmaison {
+        import internal_only ntfy_sh:80
+      }
+
       portainer.fmaison {
         import internal_only portainer:9000
       }

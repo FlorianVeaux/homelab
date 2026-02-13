@@ -1,0 +1,36 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy_sh
+    command: serve --config /etc/ntfy/server.yml
+    volumes:
+      - /nvme/docker/ntfy/cache:/var/cache/ntfy
+    configs:
+      - source: ntfy_config
+        target: /etc/ntfy/server.yml
+    init: true
+    healthcheck: # optional: remember to adapt the host:port to your environment
+        test: ["CMD-SHELL", "wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo '\"healthy\"\\s*:\\s*true' || exit 1"]
+        interval: 60s
+        timeout: 10s
+        retries: 3
+        start_period: 40s
+    environment:
+      - TZ=Europe/Paris
+    restart: unless-stopped
+    networks:
+      - caddy_public
+
+networks:
+  caddy_public:
+    external: true
+
+configs:
+  ntfy_config:
+    content: |
+      base-url: "https://ntfy.fmaison"
+      cache-file: "/var/cache/ntfy/cache.db"
+      attachment-cache-dir: "/var/cache/ntfy/attachments"
+      behind-proxy: true
+      auth-default-access: "deny-all"
+      upstream-base-url: "https://ntfy.sh"
