@@ -31,6 +31,8 @@ configs:
       base-url: "https://ntfy.florianveaux.fr"
       cache-file: "/var/lib/ntfy/cache.db"
       auth-file: "/var/lib/ntfy/auth.db"
+      auth-users:
+        - "${NTFY_USER_ID}:${NTFY_USER_HASH}:admin"
       auth-default-access: "deny-all"
       attachment-cache-dir: "/var/lib/ntfy/attachments"
       behind-proxy: true
