@@ -4,7 +4,7 @@ services:
     container_name: ntfy_sh
     command: serve --config /etc/ntfy/server.yml
     volumes:
-      - /nvme/docker/ntfy/cache:/var/cache/ntfy
+      - /nvme/docker/ntfy/:/var/lib/ntfy
     configs:
       - source: ntfy_config
         target: /etc/ntfy/server.yml
@@ -28,9 +28,10 @@ networks:
 configs:
   ntfy_config:
     content: |
-      base-url: "https://ntfy.fmaison"
-      cache-file: "/var/cache/ntfy/cache.db"
-      attachment-cache-dir: "/var/cache/ntfy/attachments"
-      behind-proxy: true
+      base-url: "https://ntfy.florianveaux.fr"
+      cache-file: "/var/lib/ntfy/cache.db"
+      auth-file: "/var/lib/ntfy/auth.db"
       auth-default-access: "deny-all"
+      attachment-cache-dir: "/var/lib/ntfy/attachments"
+      behind-proxy: true
       upstream-base-url: "https://ntfy.sh"
