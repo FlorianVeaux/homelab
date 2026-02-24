@@ -45,9 +45,7 @@ configs:
         reverse_proxy 192.168.1.3:${IMMICH_PORT}
       }
 
-      nextcloud.florianveaux.fr {
-        reverse_proxy nextcloud:80
-      }
+
 
 
 
@@ -67,6 +65,10 @@ configs:
 
       adguard.fmaison {
         import internal_only adguardhome:8080
+      }
+
+      nextcloud.fmaison {
+        reverse_proxy nextcloud:80
       }
 
       backrest.fmaison {
