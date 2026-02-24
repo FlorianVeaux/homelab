@@ -68,7 +68,7 @@ configs:
       }
 
       nextcloud.fmaison {
-        reverse_proxy nextcloud:80
+        import internal_only reverse_proxy nextcloud:80
       }
 
       backrest.fmaison {
