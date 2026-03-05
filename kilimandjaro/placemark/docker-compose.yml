@@ -1,0 +1,22 @@
+services:
+  placemark:
+    image: ghcr.io/florianveaux/placemark:latest
+    container_name: placemark
+    restart: unless-stopped
+    environment:
+      DB_PATH: /data/placemark.db
+      JWT_SECRET: ${JWT_SECRET}
+      APP_BASE_URL: ${APP_BASE_URL}
+      MAPTILER_API_KEY: ${MAPTILER_API_KEY}
+      OIDC_ISSUER_URL: ${OIDC_ISSUER_URL}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+    volumes:
+      - /nvme/docker/placemark/data:/data
+    networks:
+      - caddy_public
+    restart: unless-stopped
+
+networks:
+  caddy_public:
+    external: true
