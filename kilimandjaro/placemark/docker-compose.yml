@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment:
       DB_PATH: /data/placemark.db
+      AUTH_MODE: ${AUTH_MODE:-oidc}
       JWT_SECRET: ${JWT_SECRET}
       APP_BASE_URL: ${APP_BASE_URL}
       MAPTILER_API_KEY: ${MAPTILER_API_KEY}
