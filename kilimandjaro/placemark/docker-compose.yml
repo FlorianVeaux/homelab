@@ -15,7 +15,6 @@ services:
       - /nvme/docker/placemark/data:/data
     networks:
       - caddy_public
-    restart: unless-stopped
 
 networks:
   caddy_public:
