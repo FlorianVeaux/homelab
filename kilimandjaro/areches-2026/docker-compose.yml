@@ -1,0 +1,11 @@
+services:
+  areches-2026:
+    image: ghcr.io/florianveaux/areches-2026:latest
+    container_name: areches-2026
+    restart: unless-stopped
+    networks:
+      - caddy_public
+
+networks:
+  caddy_public:
+    external: true

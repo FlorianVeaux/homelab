@@ -55,6 +55,12 @@ configs:
         reverse_proxy placemark:8080
       }
 
+      annivs.delille-veaux.fr {
+        reverse_proxy areches-2026:80
+        encode zstd gzip
+        header X-Robots-Tag "noindex, nofollow"
+      }
+
       (internal_only) {
         tls internal
         @internal {
