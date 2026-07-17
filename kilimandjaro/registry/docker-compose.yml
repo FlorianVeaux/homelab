@@ -7,8 +7,8 @@ services:
       - /nvme/docker/registry:/var/lib/registry
     restart: unless-stopped
     networks:
-      - caddy_public
+      - cloudflare_tunnel
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

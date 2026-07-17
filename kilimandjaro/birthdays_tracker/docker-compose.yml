@@ -11,9 +11,9 @@ services:
     volumes:
       - /nvme/docker/birthdays_app/data/birthdays:/data/
     networks:
-      - caddy_public
+      - cloudflare_tunnel
     restart: unless-stopped
   
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

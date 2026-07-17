@@ -13,8 +13,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro # For docker integrations
     restart: unless-stopped
     networks:
-      - caddy_public
+      - cloudflare_tunnel
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

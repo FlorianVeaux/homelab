@@ -10,8 +10,8 @@ services:
       - /nvme/docker/heimdall/config/:/config
     restart: unless-stopped
     networks:
-      - caddy_public
+      - cloudflare_tunnel
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

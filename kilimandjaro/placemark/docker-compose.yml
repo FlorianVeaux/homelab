@@ -15,8 +15,8 @@ services:
     volumes:
       - /nvme/docker/placemark/data:/data
     networks:
-      - caddy_public
+      - cloudflare_tunnel
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

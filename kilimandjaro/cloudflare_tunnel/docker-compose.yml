@@ -11,6 +11,7 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - caddy_public
+      - cloudflare_tunnel
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
 

@@ -7,10 +7,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /nvme/docker/portainer/data:/data
     networks:
-      - caddy_public
+      - cloudflare_tunnel
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true
   # ts-portainer:
   #   image: tailscale/tailscale:latest
