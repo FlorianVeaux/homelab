@@ -49,5 +49,5 @@ services:
     restart: unless-stopped
   
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true

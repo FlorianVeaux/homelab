@@ -2,12 +2,21 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    restart: unless-stopped
+    restart: always
     command:
       - tunnel
       - --no-autoupdate
       - run
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - caddy_public
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+
+networks:
+  caddy_public:
+    external: true
+  cloudflare_tunnel:
+    name: cloudflare_tunnel
+    driver: bridge
