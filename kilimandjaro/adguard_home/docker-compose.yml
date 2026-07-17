@@ -39,7 +39,7 @@ services:
       - /nvme/docker/adguard_home/work:/opt/adguardhome/work
       - /nvme/docker/adguard_home/conf:/opt/adguardhome/conf
     networks:
-      - caddy_public
+      - cloudflare_tunnel
     healthcheck:
       test: ["CMD", "pgrep", "-f", "adguardhome"] # Check if adguardhome process is running
       interval: 1m # How often to perform the check
