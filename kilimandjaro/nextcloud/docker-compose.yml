@@ -25,7 +25,7 @@ services:
     volumes:
       - /nvme/docker/nextcloud/mysql:/var/lib/mysql
     networks:
-      - caddy_public
+      - cloudflare_tunnel
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
@@ -44,10 +44,10 @@ services:
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=nextcloud_db
     networks:
-      - caddy_public
+      - cloudflare_tunnel
     depends_on:
       - nextcloud_db
 
 networks:
-  caddy_public:
+  cloudflare_tunnel:
     external: true
