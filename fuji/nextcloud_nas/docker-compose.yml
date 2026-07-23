@@ -16,6 +16,7 @@ services:
       - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
       - TRUSTED_PROXIES=${TRUSTED_PROXIES}
       - OVERWRITEPROTOCOL=https
+      - OVERWRITECLIURL=https://nextcloud.florianveaux.fr
     volumes:
       - nextcloud_html:/var/www/html
       - ${CONFIG_DIR}:/var/www/html/config
